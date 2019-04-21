@@ -14,16 +14,17 @@ class Manager {
 	int qualityAssurance;
 	int allocation;
 	String name;
+
 	
 	public Manager(String name, List<Manager> submanagers, int devs, int qa) {
 		this.name = name;
 		this.subManagers = submanagers;
 		if(devs < 0 || qa < 0) {
-			System.out.println("ERROR: Cannot have negative developers or QA");
+			System.out.println("ERROR: Manager " + name + " is invalid. Cannot have negative developers or QA");
 			System.exit(1);
 		}
 		if(submanagers.contains(name)) {
-			System.out.println("ERROR: A submanager cannot be a submanager of itself");
+			System.out.println("ERROR: Manager " + name + " is invalid. A submanager cannot be a submanager of itself");
 			System.exit(1);
 		}
 		this.developers = devs;
@@ -37,22 +38,14 @@ class Manager {
 		if (subManagers.isEmpty() == false) {
 			for (int i = 0; i < subManagers.size(); i++) {
 				if (!(subManagers.get(i).allocation > 0)) {
-					System.out.println("ERROR: Unallocated Submanager");
+					System.out.println("ERROR: Manager: " + subManagers.get(i).name + " sub-managers are not allocated");
 					System.exit(1);
 				}
 			}
 		}
-		this.allocation = SubManagerAllocationSum(subManagers) + MANAGER_COST + developers * DEV_COST + qualityAssurance * QA_COST;
-		
+		this.allocation = SubManagerAllocationSum(subManagers) + MANAGER_COST + developers * DEV_COST + qualityAssurance * QA_COST;	
 	}
 	
-	public String GetManagerName() {
-		return this.name;
-	}
-	
-	public int GetManagerAllocation() {
-		return this.allocation;
-	}
 	
 	public int SubManagerAllocationSum(List<Manager> subManagers) {
 		int allocation = 0;
@@ -61,5 +54,15 @@ class Manager {
 			allocation += subManagers.get(i).allocation;
 		}
 		return allocation;
+	}
+	
+
+	public String GetManagerName() {
+		return this.name;
+	}
+	
+	
+	public int GetManagerAllocation() {
+		return this.allocation;
 	}
 }
