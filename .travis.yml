@@ -8,6 +8,7 @@ jdk:
   - openjdk10
   - openjdk11
   
-script: ant compile
-script: ant jar
-script: ant run
+script: 
+    - ant compile
+    - ant jar
+    - ant run
