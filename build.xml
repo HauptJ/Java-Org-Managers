@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
+    <target name="clean">
+        <delete dir="bin"/>
+    	<delete dir="build"/>
+    </target>
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes"/>
+    </target>
+    <target name="jar">
+        <mkdir dir="build"/>
+        <jar destfile="build/jar/main.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="organization.Driver"/>
+            </manifest>
+        </jar>
+    </target>
+	<target name="run">
+		<java jar="build/jar/main.jar" fork="true"/>
+	</target>
+	
+</project>
